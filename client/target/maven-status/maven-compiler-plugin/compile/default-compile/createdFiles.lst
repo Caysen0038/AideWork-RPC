@@ -1,0 +1,12 @@
+org\aidework\rpc\client\exception\ExceptionDispatcher$1.class
+org\aidework\rpc\client\exception\ExceptionDispatcher$ExceptionDispatcherHolder.class
+org\aidework\rpc\client\proxy\ProxyContainer$RPCServiceManagerHolder.class
+org\aidework\rpc\client\proxy\ProxyContainer.class
+org\aidework\rpc\client\proxy\ProxyContainer$1.class
+org\aidework\rpc\client\SocketClient.class
+org\aidework\rpc\client\exception\ExceptionDispatcher.class
+org\aidework\rpc\client\RPCClientContext.class
+org\aidework\rpc\client\RPCClient.class
+org\aidework\rpc\client\RPCClientContext$RPCClientContextHolder.class
+org\aidework\rpc\client\exception\ExceptionHandler.class
+org\aidework\rpc\client\RPCClientContext$1.class
