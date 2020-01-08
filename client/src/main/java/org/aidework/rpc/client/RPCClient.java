@@ -25,16 +25,16 @@ public class RPCClient {
     }
 
     public Object request(RPCRequest request){
-        return request(request,RPCRequestProtocol.Builde());
+        return request(request,RPCClientContext.getRequestProtocol());
     }
-    @Deprecated
+
     public <T> Object request(RPCRequest request,Protocol protocol){
         byte[] data=protocol.generate(request);
         byte[] res= RPCClientContext.getRpcClient().sendMessage(data);
         if(!request.isReturn()){
             return null;
         }
-        Protocol<RPCResponse> resProto= RPCResponseProtocol.Builde();
+        Protocol<RPCResponse> resProto= RPCClientContext.getResponseProtocol();
         RPCResponse response=resProto.analysis(res);
         if(response.getCode()!=200){
             ExceptionDispatcher.dispatch(String.valueOf(response.getCode()));

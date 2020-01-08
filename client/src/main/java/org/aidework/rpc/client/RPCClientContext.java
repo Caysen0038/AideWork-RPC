@@ -7,9 +7,7 @@ import org.aidework.rpc.client.exception.ExceptionHandler;
 import org.aidework.rpc.client.proxy.ProxyContainer;
 import org.aidework.rpc.core.annotation.RPCInterface;
 import org.aidework.rpc.core.helper.SystemLogger;
-import org.aidework.rpc.core.protocol.Protocol;
-import org.aidework.rpc.core.protocol.RequestProtocol;
-import org.aidework.rpc.core.protocol.ResponseProtocol;
+import org.aidework.rpc.core.protocol.*;
 import org.aidework.rpc.core.util.ClassScanner;
 
 import java.util.ArrayList;
@@ -25,6 +23,8 @@ public class RPCClientContext {
     private ProxyContainer proxyContainer=null;
     private ExceptionDispatcher exceptionDispatcher;
     private RPCClient rpcClient;
+    private RequestProtocol requestProtocol;
+    private ResponseProtocol responseProtocol;
     private static SystemLogger logger;
     private static RPCClientContext instance;
 
@@ -107,21 +107,17 @@ public class RPCClientContext {
     }
 
     /**
-     * Set specified request protocol to resolve data
-     * @param protocol
+     * Get specified request protocol to resolve data
      */
-    @Deprecated
-    public static void setRequestProtocol(RequestProtocol protocol){
-
+    public static RequestProtocol getRequestProtocol(){
+        return instance.requestProtocol;
     }
 
     /**
-     * Set specified response protocol to resolve data
-     * @param protocol
+     * Get specified response protocol to resolve data
      */
-    @Deprecated
-    public static void setResponseProtocol(ResponseProtocol protocol){
-
+    public static ResponseProtocol getResponseProtocol(){
+        return instance.responseProtocol;
     }
 
     /**
@@ -186,6 +182,8 @@ public class RPCClientContext {
                 Integer.parseInt(configMap.get("rpc.client.port")));
 
         loadDependenceClass();
+        loadProtocol();
+
     }
 
     /**
@@ -235,6 +233,32 @@ public class RPCClientContext {
     }
 
 
+    private void loadProtocol(){
+        String proStr=configMap.get("rpc.request.protocol.class");
+        if(proStr==null || proStr.length()==0){
+            requestProtocol= RPCRequestProtocol.Builde();
+        }else{
+            try{
+                Class c=Class.forName(proStr);
+                requestProtocol= (RequestProtocol) c.newInstance();
+            }catch (Exception e){
+                requestProtocol=RPCRequestProtocol.Builde();
+            }
+        }
+        proStr=configMap.get("rpc.response.protocol.class");
+        if(proStr==null || proStr.length()==0){
+            responseProtocol= RPCResponseProtocol.Builde();
+        }else{
+            try{
+                Class c=Class.forName(proStr);
+                responseProtocol= (ResponseProtocol) c.newInstance();
+            }catch (Exception e){
+                responseProtocol=RPCResponseProtocol.Builde();
+            }
+        }
+    }
+
+
     /**
      * Destroy RPC context
      * Must init again if want to use context next time
@@ -265,6 +289,8 @@ public class RPCClientContext {
         Map<String,String> map=new HashMap<>();
         map.put("rpc.client.port","2057");
         map.put("rpc.client.serviceIp","127.0.0.1");
+        map.put("rpc.request.protocol.class","");
+        map.put("rpc.response.protocol.class","");
         return map;
     }
 

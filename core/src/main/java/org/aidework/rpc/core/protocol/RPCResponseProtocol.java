@@ -1,8 +1,8 @@
 package org.aidework.rpc.core.protocol;
 
+import org.aidework.rpc.core.bean.RPCRequest;
 import org.aidework.rpc.core.bean.RPCResponse;
 import org.aidework.rpc.core.helper.ByteHelper;
-
 import java.io.*;
 
 /**
@@ -18,7 +18,7 @@ public class RPCResponseProtocol implements ResponseProtocol {
     private RPCResponseProtocol(){
         header=new byte[HEADER_LENGTH];
     }
-    public static Protocol Builde(){
+    public static ResponseProtocol Builde(){
         return RPCResponseProtocol.ProtocolHolder.instance;
     }
 

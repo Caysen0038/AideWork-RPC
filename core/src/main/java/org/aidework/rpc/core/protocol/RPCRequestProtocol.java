@@ -12,7 +12,7 @@ public class RPCRequestProtocol implements RequestProtocol {
     public static final String TARGET_EXECUTOR="RPC";
     private byte[] header;
 
-    public static Protocol Builde(){
+    public static RequestProtocol Builde(){
         return RPCRequestProtocol.ProtocolHolder.instance;
     }
     /**
