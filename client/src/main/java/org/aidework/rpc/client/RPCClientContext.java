@@ -237,23 +237,29 @@ public class RPCClientContext {
         String proStr=configMap.get("rpc.request.protocol.class");
         if(proStr==null || proStr.length()==0){
             requestProtocol= RPCRequestProtocol.Builde();
+            SystemLogger.logNormal("Load standard RPC request protocol");
         }else{
             try{
                 Class c=Class.forName(proStr);
                 requestProtocol= (RequestProtocol) c.newInstance();
+                SystemLogger.logNormal("Load custom RPC request protocol");
             }catch (Exception e){
                 requestProtocol=RPCRequestProtocol.Builde();
+                SystemLogger.logNormal("Load standard RPC request protocol");
             }
         }
         proStr=configMap.get("rpc.response.protocol.class");
         if(proStr==null || proStr.length()==0){
             responseProtocol= RPCResponseProtocol.Builde();
+            SystemLogger.logNormal("Load standard RPC response protocol");
         }else{
             try{
                 Class c=Class.forName(proStr);
                 responseProtocol= (ResponseProtocol) c.newInstance();
+                SystemLogger.logNormal("Load custom RPC response protocol");
             }catch (Exception e){
                 responseProtocol=RPCResponseProtocol.Builde();
+                SystemLogger.logNormal("Load standard RPC response protocol");
             }
         }
     }
