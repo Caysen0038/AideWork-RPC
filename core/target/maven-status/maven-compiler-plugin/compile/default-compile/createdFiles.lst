@@ -1,0 +1,4 @@
+rpc\test\core\protocol\CustomResponseProtocol.class
+rpc\test\core\bean\TestBean.class
+rpc\test\core\inte\TestRPC.class
+rpc\test\core\protocol\CustomRequestProtocol.class
