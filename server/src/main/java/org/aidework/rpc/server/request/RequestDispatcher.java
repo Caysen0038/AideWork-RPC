@@ -4,6 +4,7 @@ import org.aidework.rpc.core.bean.RPCResponse;
 import org.aidework.rpc.core.helper.SystemLogger;
 import org.aidework.rpc.core.protocol.Protocol;
 import org.aidework.rpc.core.protocol.RPCResponseProtocol;
+import org.aidework.rpc.core.protocol.RequestProtocol;
 import org.aidework.rpc.core.protocol.ResponseProtocol;
 import org.aidework.rpc.server.RPCServerContext;
 import org.aidework.rpc.server.request.handler.RequestHandler;
@@ -16,7 +17,7 @@ import org.aidework.rpc.server.request.handler.RequestHandler;
  * Protocol be invoke by handler,model just load data between client and server.
  */
 public final class RequestDispatcher {
-    public static final int HEADER_LENGTH= Protocol.HEADER_LENGTH;
+    public static final int HEADER_LENGTH= RequestProtocol.HEADER_LENGTH;
     private static SystemLogger logger;
 
     /**

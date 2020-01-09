@@ -14,14 +14,7 @@ public interface Protocol<T> {
      * 无论继承实现何种协议，数据头都应按此实现
      * 请求分配器将按此包头识别并分配处理器
      */
-    int HEADER_LENGTH=15;
-
-    /**
-     * 获取目标数处理器标识
-     * @return
-     */
-    String getTargetExecutor();
-
+    byte[] getHeader();
     /**
      * 将二进制数据解析为数据模型
      * @param data

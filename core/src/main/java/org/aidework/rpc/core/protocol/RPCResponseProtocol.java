@@ -8,15 +8,9 @@ import java.io.*;
 /**
  * 消息回送协议
  */
-public class RPCResponseProtocol implements ResponseProtocol {
-    /**
-     * 消息头
-     * 在此协议中，0位（返回值标识）作废，5-14位（处理器标识）作废
-     */
-    private static byte[] header;
+public class RPCResponseProtocol extends ResponseProtocol {
 
     private RPCResponseProtocol(){
-        header=new byte[HEADER_LENGTH];
     }
     public static ResponseProtocol Builde(){
         return RPCResponseProtocol.ProtocolHolder.instance;
@@ -26,10 +20,6 @@ public class RPCResponseProtocol implements ResponseProtocol {
         private static RPCResponseProtocol instance=new RPCResponseProtocol();
     }
 
-    @Override
-    public String getTargetExecutor() {
-        return null;
-    }
 
     @Override
     public RPCResponse analysis(byte[] temp) {
@@ -65,6 +55,7 @@ public class RPCResponseProtocol implements ResponseProtocol {
         byte[] data=new byte[HEADER_LENGTH+temp.length];
         int n=0;
         data[n]=0;
+        // 设置header中的信息长度
         for(byte b: ByteHelper.int2Byte(data.length)){
             data[n++]=b;
         }

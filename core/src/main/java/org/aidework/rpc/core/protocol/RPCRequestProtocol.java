@@ -8,9 +8,8 @@ import java.io.*;
 /**
  * RPC请求协议
  */
-public class RPCRequestProtocol implements RequestProtocol {
-    public static final String TARGET_EXECUTOR="RPC";
-    private byte[] header;
+public class RPCRequestProtocol extends RequestProtocol {
+    public static final String TARGET="RPC";
 
     public static RequestProtocol Builde(){
         return RPCRequestProtocol.ProtocolHolder.instance;
@@ -24,19 +23,14 @@ public class RPCRequestProtocol implements RequestProtocol {
     }
 
     private RPCRequestProtocol(){
-        header=new byte[HEADER_LENGTH];
-        int n=5;
-        for(byte b:TARGET_EXECUTOR.getBytes()){
-            header[n++]=b;
-        }
-        for(;n<HEADER_LENGTH;n++){
-            header[n]=0;
-        }
+
     }
+
     @Override
-    public String getTargetExecutor() {
-        return TARGET_EXECUTOR;
+    public byte[] getTarget() {
+        return TARGET.getBytes();
     }
+
 
     @Override
     public RPCRequest analysis(byte[] temp) {
