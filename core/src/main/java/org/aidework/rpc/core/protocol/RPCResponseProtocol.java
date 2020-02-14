@@ -55,7 +55,7 @@ public class RPCResponseProtocol extends ResponseProtocol {
         byte[] data=new byte[HEADER_LENGTH+temp.length];
         int n=0;
         data[n]=0;
-        // 设置header中的信息长度
+        // set length in header
         for(byte b: ByteHelper.int2Byte(data.length)){
             data[n++]=b;
         }
